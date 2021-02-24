@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import { BrowserRouter, NavLink, Route } from 'react-router-dom';
 import './App.css';
+import Render from './creator';
+import { useDispatch } from 'react-redux';
+
+const Uii = (routing) => {
+  const dispatch = useDispatch();
+  let i = 0;
+
+  return (
+    <BrowserRouter>
+      {routing.map(route => (i++ === 0 ?
+        <Route exact path={route.path} component={Render(route.content)}/> :
+        <Route path={route.path} component={Render(route.content)}/>
+      ))}
+
+      <button onClick={() => dispatch({type:'incA'})}>+</button>
+      {/*<NavLink to='/'><div><span>Comp</span></div></NavLink>
+      <NavLink to='/settings/'><div><span>Settings</span></div></NavLink>*/}
+    </BrowserRouter>
+  );
+};
 
 function App() {
+  const routing = [{path: '/', name: 'home', content: 'ui'}, {path: '/settings', name: 'Settings', content: 'settings'}];
+  const Ui = () => Uii(routing);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Ui/>
   );
 }
 
