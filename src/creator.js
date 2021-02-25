@@ -10,9 +10,13 @@ const Ui = () => {
 };
 
 const Settings = () => <h1>Settings</h1>;
-
 const Render = (content) => {
-  const ui = useCallback(() => ["a", "b"].map((t) => Test(t)), []);
+  const ui = useCallback(() =>
+    Dashboard(
+      ["a", "b"].map((t) => Test(t)),
+      []
+    )
+  );
   switch (content) {
     case "ui":
       //WORKS
